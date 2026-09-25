@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Jaike.Web</title>
+    <link rel="icon" href="images/history/colegio-quiindy-16.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="images/history/colegio-quiindy.png" alt="Logo Colegio Nacional de Quiindy">
+            </div>
+            <div class="header-title">
+                <h1>Jaike.Web</h1>
+                <p class="subtitle">Una ayuda para el aprendizaje moderno</p>
+            </div>
+            <div class="header-controls">
+                <button id="login-btn" class="login-btn">
+                    <i class="fas fa-user"></i> Iniciar Sesion
+                </button>
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i> Oscuro
+                </button>
+            </div>
+            <div id="student-dashboard" class="student-dashboard">
+                <div id="student-avatar" class="student-avatar">U</div>
+                <div class="student-info">
+                    <span id="student-name" class="student-name">Estudiante</span>
+                    <span id="student-role" class="student-role">Usuario</span>
+                </div>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="about.html">Institucion</a></li>
+                        <li><a href="resources.html">Recursos</a></li>
+                        <li><a href="history.html">Historia</a></li>
+                        <li><a href="admin.html" class="active">Admin Panel</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                    </ul>
+                </nav>
+        </div>
+    </header>
+
+    <main>
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Iniciar Sesion - Jaike.Web</h3>
+                    <button id="close-login" class="close-modal">&times;</button>
+                </div>
+                <form id="login-form" class="modal-form">
+                    <input type="text" name="username" placeholder="Usuario (ej: admin)" required autofocus>
+                    <input type="password" name="password" placeholder="Contrasena" required>
+                    <button type="submit">Entrar</button>
+                </form>
+                <div style="margin-top: 15px; font-size: 11px; color: #64748b; text-align: center;">
+                    <p><strong>Usuarios demo:</strong> admin/admin123</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit User Modal -->
+        <div id="edit-user-modal" class="modal">
+            <div class="modal-content" style="max-width:500px;">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="edit-user-modal-title">Editar Usuario</h3>
+                    <button id="close-edit-user-modal" class="close-modal">&times;</button>
+                </div>
+                <form id="edit-user-form" class="modal-form">
+                    <input type="hidden" id="edit-user-id">
+                    <input type="text" id="edit-user-name" placeholder="Nombre completo" required>
+                    <input type="text" id="edit-user-username" placeholder="Nombre de usuario" required>
+                    <input type="email" id="edit-user-email" placeholder="Correo electronico" required>
+                    <input type="password" id="edit-user-password" placeholder="Nueva contrasena (opcional)">
+                    <select id="edit-user-role" required>
+                        <option value="">Seleccionar rol</option>
+                        <option value="admin">Administrador</option>
+                        <option value="user">Estudiante</option>
+                    </select>
+                    <select id="edit-user-active" required>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                    <button type="button" onclick="saveUserAction()" style="background:var(--primary-dark);color:white;padding:12px;border-radius:8px;border:none;font-weight:600;cursor:pointer;">Guardar cambios</button>
+                </form>
+            </div>
+        </div>
+
+        <section class="page-content">
+            <div class="container">
+                <h2><i class="fas fa-user-cog"></i> Panel de Administracion</h2>
+                <p>Gestion de usuarios, roles y permisos del sistema Jaike.Web.</p>
+
+                <div id="admin-panel" class="admin-panel">
+                    <div class="admin-section">
+                        <h3><i class="fas fa-users"></i> Gestión de Usuarios</h3>
+                        <div style="overflow-x:auto;">
+                            <button id="add-user-btn" class="btn" style="background:var(--primary);color:white;padding:8px 16px;border-radius:6px;font-size:12px;display:inline-flex;align-items:center;gap:6px;margin-bottom:15px;">
+                                <i class="fas fa-plus"></i> Agregar Usuario
+                            </button>
+                            <table class="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Usuario</th>
+                                        <th>Email</th>
+                                        <th>Rol</th>
+                                        <th>Estado</th>
+                                        <th>Registro</th>
+                                        <th>Último Login</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="admin-section" id="resource-management">
+                        <h3><i class="fas fa-book-open"></i> Gestión de Recursos</h3>
+                        <div style="overflow-x:auto;">
+                            <button id="add-resource-btn" class="btn" style="background:var(--primary);color:white;padding:8px 16px;border-radius:6px;font-size:12px;display:inline-flex;align-items:center;gap:6px;margin-bottom:15px;">
+                                <i class="fas fa-plus"></i> Agregar Recurso
+                            </button>
+                            <table class="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Tipo</th>
+                                        <th>Asignatura</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resources-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Edit Resource Modal -->
+                    <div id="edit-resource-modal" class="modal">
+                        <div class="modal-content" style="max-width:500px;">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Editar Recurso</h3>
+                                <button id="close-edit-resource" class="close-modal">&times;</button>
+                            </div>
+                            <form id="edit-resource-form" class="modal-form">
+                                <input type="hidden" id="edit-resource-id">
+                                <input type="text" id="edit-title" placeholder="Título del recurso" required>
+                                <textarea id="edit-description" placeholder="Descripción del recurso" rows="3" required></textarea>
+                                <select id="edit-type" required>
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="video">Video</option>
+                                    <option value="link">Enlace</option>
+                                    <option value="doc">Documento</option>
+                                </select>
+                                <select id="edit-subject">
+                                    <option value="">Seleccionar asignatura</option>
+                                    <option value="math">Matemática</option>
+                                    <option value="prog">Programación</option>
+                                    <option value="networks">Redes</option>
+                                    <option value="db">Base de Datos</option>
+                                    <option value="">Otra</option>
+                                </select>
+                                <input type="url" id="edit-view-url" placeholder="URL para ver recurso" required>
+                                <input type="url" id="edit-download-url" placeholder="URL para descargar (opcional)">
+                                <input type="text" id="edit-pages" placeholder="Número de páginas (ej: 240 páginas)">
+                                <input type="text" id="edit-size" placeholder="Tamaño (ej: 45 MB)">
+                                <button type="button" onclick="ResourcesManager.saveEditedResource()" style="background:var(--primary-dark);color:white;padding:12px;border-radius:8px;border:none;font-weight:600;cursor:pointer;">Guardar cambios</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h3><i class="fas fa-chart-bar"></i> Estadisticas</h3>
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;">
+                            <div style="background:var(--bg);padding:20px;border-radius:10px;border:1px solid var(--border);text-align:center;">
+                                <div style="font-size:28px;font-weight:700;color:var(--primary);">6</div>
+                                <div style="font-size:11px;color:var(--text-light);">Total Usuarios</div>
+                            </div>
+                            <div style="background:var(--bg);padding:20px;border-radius:10px;border:1px solid var(--border);text-align:center;">
+                                <div style="font-size:28px;font-weight:700;color:#2563eb;">2</div>
+                                <div style="font-size:11px;color:var(--text-light);">Administradores</div>
+                            </div>
+                            <div style="background:var(--bg);padding:20px;border-radius:10px;border:1px solid var(--border);text-align:center;">
+                                <div style="font-size:28px;font-weight:700;color:#f59e0b;">1</div>
+                                <div style="font-size:11px;color:var(--text-light);">Inactivos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="admin-warning" style="display:none;background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:20px;text-align:center;">
+                    <p style="color:#92400e;font-weight:600;margin-bottom:10px;">
+                        <i class="fas fa-exclamation-triangle"></i> Acceso restringido
+                    </p>
+                    <p style="color:#92400e;font-size:13px;">Debes iniciar sesion como administrador para ver este panel.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>(c) 2026 Colegio Nacional de Quiindy - Proyecto Jaike.Web</p>
+            <p>Responsable: Karen Monserrat Jave Morales | 3er Curso B.T.I.</p>
+        </div>
+    </footer>
+
+    <script src="js/users.js"></script>
+    <script src="js/resources.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Load users and resources into admin panel
+        async function loadAdminData() {
+            // Load users
+            try {
+                const users = await getAllUsers();
+                const tbody = document.getElementById('users-tbody');
+                if (tbody) {
+                    tbody.innerHTML = users.map(u => `
+                        <tr data-id="${u.id}">
+                            <td><span style="color:${u.avatarColor};font-weight:600;">${u.name || u.username}</span></td>
+                            <td>${u.username}</td>
+                            <td>${u.email}</td>
+                            <td><span class="role-badge ${u.role === 'admin' ? 'role-admin' : 'role-user'}">${u.role === 'admin' ? 'Admin' : 'Estudiante'}</span></td>
+                            <td><span class="status-badge ${u.isActive ? 'status-active' : 'status-inactive'}"></span>${u.isActive ? 'Activo' : 'Inactivo'}</td>
+                            <td>${u.createdAt || 'N/A'}</td>
+                            <td>${u.lastLogin || 'N/A'}</td>
+                            <td>
+                                <button onclick="editUser('${u.id}')" class="btn" style="background:#2563eb;color:white;padding:4px 8px;border-radius:4px;font-size:11px;">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <button onclick="deleteUserAction('${u.id}')" class="btn" style="background:#ef4444;color:white;padding:4px 8px;border-radius:4px;font-size:11px;">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (e) {
+                console.error('Error loading users:', e);
+            }
+            
+            // Load resources
+            if (typeof ResourcesManager !== 'undefined') {
+                await ResourcesManager.loadResources();
+                ResourcesManager.renderAdminTable();
+            }
+        }
+
+        function editUser(id) {
+            getAllUsers().then(users => {
+                const user = users.find(u => u.id === id);
+                if (!user) return;
+
+                document.getElementById('edit-user-id').value = user.id || '';
+                document.getElementById('edit-user-name').value = user.name || '';
+                document.getElementById('edit-user-username').value = user.username || '';
+                document.getElementById('edit-user-email').value = user.email || '';
+                document.getElementById('edit-user-password').value = user.password || '';
+                document.getElementById('edit-user-role').value = user.role || 'user';
+                document.getElementById('edit-user-active').value = user.isActive ? 'true' : 'false';
+                document.getElementById('edit-user-modal').classList.add('active');
+            });
+        }
+
+        async function saveUserAction() {
+            const user = {
+                id: document.getElementById('edit-user-id').value || Date.now().toString(),
+                name: document.getElementById('edit-user-name').value,
+                username: document.getElementById('edit-user-username').value,
+                email: document.getElementById('edit-user-email').value,
+                password: document.getElementById('edit-user-password').value,
+                role: document.getElementById('edit-user-role').value,
+                isActive: document.getElementById('edit-user-active').value === 'true',
+                createdAt: document.getElementById('edit-user-id').value ? undefined : new Date().toISOString().split('T')[0],
+                lastLogin: 'Nunca',
+                avatar: document.getElementById('edit-user-name').value?.[0] || 'U',
+                avatarColor: '#22c55e'
+            };
+
+            await saveUser(user);
+            document.getElementById('edit-user-modal').classList.remove('active');
+            loadAdminData();
+        }
+
+        async function deleteUserAction(id) {
+            if (!confirm('¿Estás seguro de eliminar este usuario?')) return;
+            await deleteUser(id);
+            loadAdminData();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.location.pathname.includes("admin.html")) {
+                loadAdminData().then(() => {
+                    // After loading data, check if user is logged in as admin
+                    if (typeof checkAdminAccess !== 'undefined') {
+                        checkAdminAccess();
+                    } else if (window.JaikeUsers) {
+                        window.JaikeUsers.isCurrentUserAdmin();
+                        const adminPanel = document.getElementById('admin-panel');
+                        const adminWarning = document.getElementById('admin-warning');
+                        const isAdmin = window.JaikeUsers.isCurrentUserAdmin();
+                        if (adminPanel) {
+                            adminPanel.style.display = isAdmin ? "block" : "none";
+                            adminPanel.classList.toggle("active", isAdmin);
+                        }
+                        if (adminWarning) adminWarning.style.display = isAdmin ? "none" : "block";
+                    }
+                });
+
+                const addUserBtn = document.getElementById('add-user-btn');
+                if (addUserBtn) addUserBtn.style.display = 'inline-flex';
+
+                addUserBtn?.addEventListener('click', function() {
+                    document.getElementById('edit-user-id').value = '';
+                    document.getElementById('edit-user-name').value = '';
+                    document.getElementById('edit-user-username').value = '';
+                    document.getElementById('edit-user-email').value = '';
+                    document.getElementById('edit-user-password').value = '';
+                    document.getElementById('edit-user-role').value = 'user';
+                    document.getElementById('edit-user-active').value = 'true';
+                    document.getElementById('edit-user-modal').classList.add('active');
+                });
+
+                document.getElementById('add-resource-btn')?.addEventListener('click', function() {
+                    document.getElementById('edit-resource-form').reset();
+                    document.getElementById('edit-resource-id').value = '';
+                    document.getElementById('edit-resource-modal').classList.add('active');
+                });
+
+                document.getElementById('close-edit-resource')?.addEventListener('click', function() {
+                    document.getElementById('edit-resource-modal').classList.remove('active');
+                });
+
+                document.getElementById('close-edit-user-modal')?.addEventListener('click', function() {
+                    document.getElementById('edit-user-modal').classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

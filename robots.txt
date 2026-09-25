@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /api/
+
+Sitemap: https://colegionacionalquiindy-py.github.io/colegio-nacional-quiindy/sitemap.xml

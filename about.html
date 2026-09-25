@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institucion - Jaike.Web</title>
+    <link rel="icon" href="images/history/colegio-quiindy-16.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="images/history/colegio-quiindy.png" alt="Logo Colegio Nacional de Quiindy">
+            </div>
+            <div class="header-title">
+                <h1>Jaike.Web</h1>
+                <p class="subtitle">Una ayuda para el aprendizaje moderno</p>
+            </div>
+            <div class="header-controls">
+                <button id="login-btn" class="login-btn">
+                    <i class="fas fa-user"></i> Iniciar Sesion
+                </button>
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i> Oscuro
+                </button>
+            </div>
+            <div id="student-dashboard" class="student-dashboard">
+                <div id="student-avatar" class="student-avatar">U</div>
+                <div class="student-info">
+                    <span id="student-name" class="student-name">Estudiante</span>
+                    <span id="student-role" class="student-role">Usuario</span>
+                </div>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="about.html" class="active">Institucion</a></li>
+                        <li><a href="resources.html">Recursos</a></li>
+                        <li><a href="history.html">Historia</a></li>
+                        <li><a href="admin.html">Admin Panel</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                    </ul>
+                </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Login Modal -->
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Iniciar Sesion - Jaike.Web</h3>
+                    <button id="close-login" class="close-modal">&times;</button>
+                </div>
+                <form id="login-form" class="modal-form">
+                    <input type="text" name="username" placeholder="Usuario (ej: admin, karen.jave)" required autofocus>
+                    <input type="password" name="password" placeholder="Contrasena" required>
+                    <button type="submit">Entrar</button>
+                </form>
+                <div style="margin-top: 15px; font-size: 11px; color: #64748b; text-align: center;">
+                    <p><strong>Usuarios demo:</strong></p>
+                    <p>admin / admin123 (Administrador)</p>
+                    <p>karen.jave / alumno123 (Estudiante)</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="page-content">
+            <div class="container">
+                <h2><i class="fas fa-school"></i> Nuestra Institucion</h2>
+                <p>El Colegio Nacional de Quiindy es una institucion educativa comprometida con la formacion integral de sus estudiantes, ofreciendo el Bachillerato Tecnico en Informatica como una de sus especialidades.</p>
+
+                <div class="contact-info">
+                    <p><strong>Mision:</strong> Formar estudiantes con solida preparacion tecnica, etica y humanistica, capaces de incorporar y desarrollar programas informaticos, brindar asistencia tecnica y aplicar el pensamiento critico en la resolucion de problemas.</p>
+                    <p><strong>Vision:</strong> Ser una institucion educativa lider en la formacion de profesionales tecnicos en informatica, adaptados a los cambios tecnologicos del mundo globalizado.</p>
+                    <p><strong>Especialidad:</strong> Bachillerato Tecnico en Informatica</p>
+                    <p><strong>Perfil profesional:</strong> El perfil profesional del Bachillerato Tecnico en Informatica pretende una solida formacion tecnica, etica y humanistica que le permita al egresado incorporarse al mundo laboral o continuar estudios superiores en el area tecnologica.</p>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h3>Nuestro Equipo Docente</h3>
+                    <div class="resource-grid">
+                        <div class="card">
+                            <i class="fas fa-chalkboard-teacher" style="font-size: 32px; color: var(--primary);"></i>
+                            <h3>Lic. Vidalia Mendez de Prieto</h3>
+                            <p>Directora Academica - Coordinacion General</p>
+                        </div>
+                        <div class="card">
+                            <i class="fas fa-chalkboard-teacher" style="font-size: 32px; color: var(--primary);"></i>
+                            <h3>Lic. Sandra Sanchez de Mareco</h3>
+                            <p>Coordinadora Tecnica - Informatica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>(c) 2026 Colegio Nacional de Quiindy - Proyecto Jaike.Web</p>
+            <p>Responsable: Karen Monserrat Jave Morales | 3er Curso B.T.I.</p>
+        </div>
+    </footer>
+
+    <script src="js/users.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

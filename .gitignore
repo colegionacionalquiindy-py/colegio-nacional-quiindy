@@ -1,0 +1,6 @@
+# Server-only files (credentials / runtime)
+server.py
+users.json
+api/users.json
+__pycache__/
+*.pyc

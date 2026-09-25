@@ -1,0 +1,96 @@
+{
+  "resources": [
+    {
+      "id": "1",
+      "title": "Matemática - Álgebra y Trigonometría",
+      "description": "Guía completa de álgebra, ecuaciones, funciones trigonométricas y aplicaciones. Incluye ejercicios resueltos.",
+      "category": "pdf",
+      "subject": "math",
+      "pages": "240 páginas",
+      "size": "45 MB",
+      "viewUrl": "https://archive.org/details/David-M-Cole-Algebra-And-Trigonometry",
+      "downloadUrl": "https://archive.org/download/David-M-Cole-Algebra-And-Trigonometry/Algebra%20and%20Trigonometry%20-%20Cole.pdf",
+      "type": "pdf"
+    },
+    {
+      "id": "2",
+      "title": "Programación - Introducción a Python",
+      "description": "Curso básico de programación con Python 3. Sintaxis, estructuras de datos, funciones y ejemplos prácticos.",
+      "category": "pdf",
+      "subject": "prog",
+      "pages": "180 páginas",
+      "size": "28 MB",
+      "viewUrl": "https://docs.python.org/3/tutorial/index.html",
+      "downloadUrl": "https://docs.python.org/3/tutorial/index.html",
+      "type": "pdf"
+    },
+    {
+      "id": "3",
+      "title": "Redes - Protocolos y Comunicación",
+      "description": "Playlist con clases teóricas sobre protocolos de red, OSI, TCP/IP, configuración de routers y switches.",
+      "category": "video",
+      "subject": "networks",
+      "duration": "3h 45min",
+      "lessons": "12 lecciones",
+      "viewUrl": "https://www.youtube.com/playlist?list=PLHSwC730k8Km1iUrlXvm7zrKOR8_NsDNn",
+      "type": "video"
+    },
+    {
+      "id": "4",
+      "title": "Plataforma de Cursos Online",
+      "description": "Accede a cursos gratuitos de programación, redes, diseño web y más. Certificados incluidos.",
+      "category": "link",
+      "subject": "",
+      "external": "Externo",
+      "recommended": "Recomendado",
+      "viewUrl": "https://educacionparaaprender.org/",
+      "type": "link"
+    },
+    {
+      "id": "5",
+      "title": "Base de Datos - MySQL Completo",
+      "description": "Manual completo de MySQL con ejemplos de consultas, funciones, procedimientos y ejercicios prácticos.",
+      "category": "pdf",
+      "subject": "db",
+      "pages": "156 páginas",
+      "size": "22 MB",
+      "viewUrl": "https://dev.mysql.com/doc/refman/8.4/en/tutorial.html",
+      "downloadUrl": "https://dev.mysql.com/doc/mysql-tutorial-excerpt/8.0/en/",
+      "type": "pdf"
+    },
+    {
+      "id": "6",
+      "title": "Proyecto Final - Desarrollo Web",
+      "description": "Clase práctica de creación de un sitio web completo con HTML, CSS, JavaScript y responsive design.",
+      "category": "video",
+      "subject": "prog",
+      "duration": "2h 30min",
+      "lessons": "8 lecciones",
+      "viewUrl": "https://www.youtube.com/playlist?list=PLxbwE86jKRgMpuZuLBivzlM8s2Dk5lXBQ",
+      "type": "video"
+    },
+    {
+      "id": "7",
+      "title": "Guía de Instalación de Sistemas Operativos",
+      "description": "Documentación paso a paso para instalar Linux y Windows en VirtualBox. Ideal para entornos de aprendizaje.",
+      "category": "doc",
+      "subject": "networks",
+      "pages": "45 páginas",
+      "size": "5 MB",
+      "viewUrl": "https://itsfoss.com/install-linux-in-virtualbox/",
+      "downloadUrl": "https://www.virtualbox.org/manual/UserManual.pdf",
+      "type": "doc"
+    },
+    {
+      "id": "8",
+      "title": "Biblioteca Virtual GUARANI",
+      "description": "Accede a miles de libros digitales y recursos educativos a través del Portal GUARANI, la plataforma oficial de educación del Paraguay.",
+      "category": "link",
+      "subject": "",
+      "external": "Externo",
+      "recommended": "Gratis",
+      "viewUrl": "https://www.portalguarani.com/",
+      "type": "link"
+    }
+  ]
+}

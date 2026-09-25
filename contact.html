@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Jaike.Web</title>
+    <link rel="icon" href="images/history/colegio-quiindy-16.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="images/history/colegio-quiindy.png" alt="Logo Colegio Nacional de Quiindy">
+            </div>
+            <div class="header-title">
+                <h1>Jaike.Web</h1>
+                <p class="subtitle">Una ayuda para el aprendizaje moderno</p>
+            </div>
+            <div class="header-controls">
+                <button id="login-btn" class="login-btn">
+                    <i class="fas fa-user"></i> Iniciar Sesion
+                </button>
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i> Oscuro
+                </button>
+            </div>
+            <div id="student-dashboard" class="student-dashboard">
+                <div id="student-avatar" class="student-avatar">U</div>
+                <div class="student-info">
+                    <span id="student-name" class="student-name">Estudiante</span>
+                    <span id="student-role" class="student-role">Usuario</span>
+                </div>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="about.html">Institucion</a></li>
+                        <li><a href="resources.html">Recursos</a></li>
+                        <li><a href="history.html">Historia</a></li>
+                        <li><a href="admin.html">Admin Panel</a></li>
+                        <li><a href="contact.html" class="active">Contacto</a></li>
+                    </ul>
+                </nav>
+        </div>
+    </header>
+
+    <main>
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Iniciar Sesion - Jaike.Web</h3>
+                    <button id="close-login" class="close-modal">&times;</button>
+                </div>
+                <form id="login-form" class="modal-form">
+                    <input type="text" name="username" placeholder="Usuario (ej: karen.jave)" required autofocus>
+                    <input type="password" name="password" placeholder="Contrasena" required>
+                    <button type="submit">Entrar</button>
+                </form>
+                <div style="margin-top: 15px; font-size: 11px; color: #64748b; text-align: center;">
+                    <p><strong>Usuarios demo:</strong> admin/admin123 o karen.jave/alumno123</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="page-content">
+            <div class="container">
+                <h2><i class="fas fa-envelope"></i> Contacto</h2>
+                <p>Comunicate con nosotros para más información sobre el proyecto Jaike.Web o para solicitar recursos adicionales.</p>
+
+                <div class="contact-info">
+                    <p><strong>Institucion:</strong> Colegio Nacional de Quiindy</p>
+                    <p><strong>Responsable:</strong> Karen Monserrat Jave Morales</p>
+                    <p><strong>Curso:</strong> 3er Curso - Bachillerato Tecnico en Informatica</p>
+                    <p><strong>Tutoras:</strong> Lic. Vidalia Mendez de Prieto - Lic. Sandra Sanchez de Mareco</p>
+                    <p><strong>Año:</strong> 2026</p>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Envianos un mensaje</h3>
+                    <form id="contact-form">
+                        <input type="text" name="name" placeholder="Nombre completo" required>
+                        <input type="email" name="email" placeholder="Correo electronico" required>
+                        <textarea name="message" placeholder="Escribe tu mensaje..." rows="5" required></textarea>
+                        <button type="submit"><i class="fas fa-paper-plane"></i> Enviar mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>(c) 2026 Colegio Nacional de Quiindy - Proyecto Jaike.Web</p>
+            <p>Responsable: Karen Monserrat Jave Morales | 3er Curso B.T.I.</p>
+        </div>
+    </footer>
+
+    <script src="js/users.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

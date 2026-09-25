@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia - Jaike.Web</title>
+    <link rel="icon" href="images/history/colegio-quiindy-16.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Timeline styles */
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 30px;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 30px;
+            text-align: left;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 4px solid var(--bg);
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -30px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -30px;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.15);
+            border-color: var(--primary-light);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            display: inline-block;
+            text-align: left;
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            color: var(--primary-darker);
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .timeline-item:nth-child(odd) .timeline-year {
+                justify-content: flex-end;
+            }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .timeline-desc {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* Stats cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.15);
+            border-color: var(--primary-light);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-darker);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Gallery */
+        .history-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid var(--border);
+            background: var(--bg-card);
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.2);
+            border-color: var(--primary-light);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 12px 14px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+            color: var(--text-light);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Quotes */
+        .quote-section {
+            background: var(--bg);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 8px 8px 0;
+            padding: 25px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .quote-text {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: var(--text);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .quote-text::before {
+            content: """;
+            position: absolute;
+            left: 0;
+            top: -15px;
+            font-size: 48px;
+            color: var(--primary-light);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .quote-author {
+            font-weight: 600;
+            color: var(--primary-darker);
+            font-size: 14px;
+        }
+
+        .quote-role {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Resolutions list */
+        .resolution-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resolution-list li {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .resolution-list li:hover {
+            background: var(--bg);
+            border-left-color: var(--primary-dark);
+            transform: translateX(5px);
+        }
+
+        .resolution-list li strong {
+            color: var(--primary-darker);
+        }
+
+        .resolution-list li .resolution-date {
+            display: inline-block;
+            background: var(--bg);
+            color: var(--primary-darker);
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Timeline sections */
+        .timeline-section {
+            margin: 40px 0;
+            padding-top: 10px;
+        }
+
+        .timeline-section-title {
+            color: var(--primary-darker);
+            font-size: 1.4em;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+        }
+
+        .timeline-section-title i {
+            color: var(--primary);
+        }
+
+        /* Responsive - mobile */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding: 0 20px 10px 60px;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(odd)::before,
+            .timeline-item:nth-child(even)::before {
+                left: -30px;
+            }
+
+            .timeline-content {
+                display: block;
+            }
+
+            .timeline-item .timeline-year {
+                justify-content: flex-start;
+            }
+
+            .gallery-item {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="images/history/colegio-quiindy.png" alt="Logo Colegio Nacional de Quiindy">
+            </div>
+            <div class="header-title">
+                <h1>Jaike.Web</h1>
+                <p class="subtitle">Una ayuda para el aprendizaje moderno</p>
+            </div>
+            <div class="header-controls">
+                <button id="login-btn" class="login-btn">
+                    <i class="fas fa-user"></i> Iniciar Sesion
+                </button>
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i> Oscuro
+                </button>
+            </div>
+            <div id="student-dashboard" class="student-dashboard">
+                <div id="student-avatar" class="student-avatar">U</div>
+                <div class="student-info">
+                    <span id="student-name" class="student-name">Estudiante</span>
+                    <span id="student-role" class="student-role">Usuario</span>
+                </div>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="about.html">Institucion</a></li>
+                    <li><a href="resources.html">Recursos</a></li>
+                    <li><a href="history.html" class="active">Historia</a></li>
+                    <li><a href="admin.html">Admin Panel</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Iniciar Sesion - Jaike.Web</h3>
+                    <button id="close-login" class="close-modal">&times;</button>
+                </div>
+                <form id="login-form" class="modal-form">
+                    <input type="text" name="username" placeholder="Usuario (ej: admin, karen.jave)" required autofocus>
+                    <input type="password" name="password" placeholder="Contrasena" required>
+                    <button type="submit">Entrar</button>
+                </form>
+                <div style="margin-top: 15px; font-size: 11px; color: #64748b; text-align: center;">
+                    <p><strong>Usuarios demo:</strong></p>
+                    <p>admin / admin123 (Administrador)</p>
+                    <p>karen.jave / alumno123 (Estudiante)</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="hero" style="padding: 50px 20px; background: linear-gradient(135deg, var(--primary-darker), var(--primary-dark));">
+            <div class="container">
+                <img src="images/history/colegio-quiindy.png" alt="Logo CNQ" style="max-height: 80px; margin-bottom: 20px;">
+                <h2><i class="fas fa-history"></i> Historia del Colegio Nacional de Quiindy</h2>
+                <p>Más de 58 años de educación pública en el corazón de Quiindy. Descubre la evolución de nuestra institución, desde sus humildes inicios hasta convertirse en un referente educativo.</p>
+                <a href="#timeline-section" class="btn">Conocer nuestra historia</a>
+            </div>
+        </section>
+
+        <section class="page-content">
+            <div class="container">
+                <h2><i class="fas fa-trophy"></i> Nuestras Estadísticas</h2>
+                <p>Un vistazo rápido a los números que definen la trayectoria del CNQ:</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">58+</div>
+                        <div class="stat-label">Años de Trayectoria</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Directores en Historia</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Logros Deportivos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">9</div>
+                        <div class="stat-label">Grados Impartiendo</div>
+                    </div>
+                </div>
+
+                <h2 id="timeline-section"><i class="fas fa-book-open"></i> Línea de Tiempo Histórica</h2>
+
+                <div class="timeline-section">
+                    <h3 class="timeline-section-title"><i class="fas fa-seedling"></i> Fundamentos (1967-1973)</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">1967</div>
+                                <div class="timeline-title">Apertura del Liceo Stroessner</div>
+                                <div class="timeline-desc">La profesora Josefina Anselma Penayo gestionó la apertura del 1º curso con el apoyo de autoridades políticas. Funcionó en forma privada con 12 alumnos en la cocina de la Escuela Nº 71 Libertador Simón Bolívar.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">1969</div>
+                                <div class="timeline-title">Nacionalización del 1º curso</div>
+                                <div class="timeline-desc">En ese mismo año se nacionalizó el 1° curso, marcando el inicio de la institución como colegio público. Con el gran respaldo de profesores que enseñaron ad-honorem.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">1970</div>
+                                <div class="timeline-title">Colegio Nacional de Quiindy</div>
+                                <div class="timeline-desc">En el año 1970 en el seno de la ciudad de Quiindy se reunieron un grupo de autoridades considerando que la comunidad no contaba en aquel entonces con un Colegio Nacional y decidieron solicitar la apertura de una institución de enseñanza que más tarde sería el Colegio Gral Alfredo Stroesner, en la actualidad Colegio Nacional de Quiindy</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">1973</div>
+                                <div class="timeline-title">Primeros Egresados</div>
+                                <div class="timeline-desc">Egresaron los primeros 12 Bachilleres en Ciencias y Letras. Además funcionó el Bachillerato Comercial.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-section">
+                    <h3 class="timeline-section-title"><i class="fas fa-school"></i> Consolidación y Crecimiento (1973-1990)</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">1978</div>
+                                <div class="timeline-title">Primeros Bachilleres Comerciales</div>
+                                <div class="timeline-desc">Egresaron los primeros Bachilleres Comerciales, marcando una etapa importante en la expansión académica del colegio.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">1990</div>
+                                <div class="timeline-title">Jubilación de Josefina Penayo</div>
+                                <div class="timeline-desc">La profesora Josefina Anselma Penayo, primera directora y fundadora, se jubiló dejando el colegio con cursos 1° al 6° turno tarde y 1° al 3° turno mañana.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-section">
+                    <h3 class="timeline-section-title"><i class="fas fa-chess-board"></i> Modernización y Avances (2006-2019)</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2006</div>
+                                <div class="timeline-title">Dirección de Alcides Benítez</div>
+                                <div class="timeline-desc">El profesor Alcides Benítez asumió la dirección el 2 de octubre. Se enfocó en evaluaciones por área y en 2010 implementó aulas temáticas con proyectores para Ciencias, Sociales, Arte y Lenguas.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2012</div>
+                                <div class="timeline-title">Visita Presidencial</div>
+                                <div class="timeline-desc">El Presidente de la República Federico Franco visitó la institución en las patronales de la ciudad, entregando insumos junto con el Ministro de Educación Horacio Galeano Perrone.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2015</div>
+                                <div class="timeline-title">Proyecto B.T.I</div>
+                                <div class="timeline-desc">Comenzó la iniciativa del proyecto de un Colegio Técnico, iniciando la construcción de 3 aulas. En 2016 se construyeron los sanitarios.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2016</div>
+                                <div class="timeline-title">Habilitación B.T.I Informática</div>
+                                <div class="timeline-desc">Presentación del proyecto para habilitar el 1° curso del Bachillerato Técnico en Informática. Resolución N° 113 del 01 de abril de 2019 lo autorizó oficialmente.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-section">
+                    <h3 class="timeline-section-title"><i class="fas fa-graduation-cap"></i> Transformación Digital y Logros (2020-2025)</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2020</div>
+                                <div class="timeline-title">Pandemia del Covid-19</div>
+                                <div class="timeline-desc">Obligó a adoptar modalidad de Educación a distancia. El CNQ tomó todas las medidas para llegar a cada alumno.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2021</div>
+                                <div class="timeline-title">Evaluación INEE</div>
+                                <div class="timeline-desc">La institución fue evaluada por el INEE ganando la evaluación externa, certificándose como Institución Generadora de Calidad Educativa (Resolución 22780/2018).</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2022</div>
+                                <div class="timeline-title">Primer Promocionales B.T.I</div>
+                                <div class="timeline-desc">Los alumnos del B.T.I participaron de la competencia "El saber va con B.T.I", ganando 1º lugar en conocimientos e integración artística.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2023</div>
+                                <div class="timeline-title">Segundo Año de Competencia</div>
+                                <div class="timeline-desc">Los estudiantes volvieron a ganar 1º lugar en la parte artística y 2º en conocimientos de informática en "El saber va con B.T.I".</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2024</div>
+                                <div class="timeline-title">Construcción Cocina Hambre Cero</div>
+                                <div class="timeline-desc">Se inauguró la construcción de la cocina correspondiente al programa Hambre Cero, beneficiando a 326 alumnos con desayuno, almuerzo y merienda en ambos turnos.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-year">2025</div>
+                                <div class="timeline-title">Campeonatos Ñe'ery</div>
+                                <div class="timeline-desc">El colegio volvió a ganar la fase distrital del Concurso Ñe'ery Fortaleciendo Saberes Sociohistóricos y Culturales con el tema "Leyendas del Lago Ypoa", clasificándose a la fase departamental.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-images"></i> Galería Histórica</h2>
+                <p style="color: var(--text-light); margin-bottom: 25px; font-size: 14px;">Explora la historia visual del Colegio Nacional de Quiindy a través de estas fotografías que documentan más de 58 años de trayectoria institucional.</p>
+
+                <h3 class="timeline-section-title" style="margin-bottom: 15px;"><i class="fas fa-seedling"></i> Orígenes y Fundación</h3>
+                <div class="history-gallery">
+                    <div class="gallery-item">
+                        <img src="images/history/colegio-quiindy.png" alt="Logo del Colegio Nacional de Quiindy">
+                        <div class="gallery-caption">Logo institucional del CNQ</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/fundadora-josefina.jpg" alt="Josefina Anselma Penayo - Fundadora">
+                        <div class="gallery-caption">Josefina Anselma Penayo - Primera directora y fundadora (1967-1990)</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/primeros-docentes.jpg" alt="Primeros docentes">
+                        <div class="gallery-caption">Primeros docentes que enseñaron ad-honorem: Digna Centurión, Estela Isasi, Martín Penayo</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/inicios-colegio.jpg" alt="Inicios del Colegio (1967)">
+                        <div class="gallery-caption">Primeros años del colegio, iniciando con 12 alumnos en la Escuela Nº 71</div>
+                    </div>
+                </div>
+
+                <h3 class="timeline-section-title" style="margin-bottom: 15px; margin-top: 30px;"><i class="fas fa-volleyball-ball"></i> Instalaciones y Deportes</h3>
+                <div class="history-gallery">
+                    <div class="gallery-item">
+                        <img src="images/history/cancha-futbol.jpg" alt="Cancha de Fútbol - Instalaciones">
+                        <div class="gallery-caption">Cancha de fútbol de campo de la institución</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/cancha-futsal-actual.jpg" alt="Lic. María Gloria Villasboa Cuenca">
+                        <div class="gallery-caption" >Lic. María Gloria Villasboa Cuenca</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/patio-institucion.jpg" alt="Lic. Francisca Flores">
+                        <div class="gallery-caption" >Lic. Francisca Flores</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/futsal-nacional.jpg" alt="Patio del colegio">
+                        <div class="gallery-caption" >Patio del Colegio Nacional de Quiindy</div>
+                    </div>
+                </div>
+
+                <h3 class="timeline-section-title" style="margin-bottom: 15px; margin-top: 30px;"><i class="fas fa-landmark"></i> Directores y Autoridades</h3>
+                <div class="history-gallery">
+                    <div class="gallery-item">
+                        <img src="images/history/directora-francisca.jpg" alt="Antiguos alumnos">
+                        <div class="gallery-caption" >Antiguos alumnos del CNQ</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/director-benetez.jpg" alt="Bus con estudiantes">
+                        <div class="gallery-caption" >Bus escolar con estudiantes del CNQ</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/profesores-actuales.jpg" alt="Equipo femenino Sub-14 2011">
+                        <div class="gallery-caption" >Equipo femenino Sub-14 del CNQ (2011) - D.T. Miguel Galeano</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/visita-presidencial.jpg" alt="Lavamanos con dispensador de alcohol en gel">
+                        <div class="gallery-caption" >Lavamanos con dispensador de alcohol en gel - Medidas de higiene institucional</div>
+                    </div>
+                </div>
+
+                <h3 class="timeline-section-title" style="margin-bottom: 15px; margin-top: 30px;"><i class="fas fa-laptop-code"></i> Bachillerato Técnico en Informática</h3>
+                <div class="history-gallery">
+                    <div class="gallery-item">
+                        <img src="images/history/construccion-bt1.jpg" alt="Defensa de proyecto Antecedentes en Justicia Electoral">
+                        <div class="gallery-caption" >Defensa de proyecto "Antecedentes" en la Sede de la Justicia Electoral</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/laboratorio-informatica.jpg" alt="Defensa de proyecto Objetivo General en Justicia Electoral">
+                        <div class="gallery-caption" >Defensa de proyecto "Objetivo General y Específico" en la Justicia Electoral</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/promocion-bti-2021.jpg" alt="Estudiantes B.T.I. lema Software">
+                        <div class="gallery-caption" >Estudiantes del B.T.I. con lema "No se puede tener un gran Software sin un gran equipo"</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/bti-evento.jpg" alt="Entrada principal Colegio Nacional Quiindy">
+                        <div class="gallery-caption" >Entrada principal del Colegio Nacional de Quiindy - Fundado 10 de agosto de 1967</div>
+                    </div>
+                </div>
+
+                <h3 class="timeline-section-title" style="margin-bottom: 15px; margin-top: 30px;"><i class="fas fa-trophy"></i> Logros y Eventos Destacados</h3>
+                <div class="history-gallery">
+                    <div class="gallery-item">
+                        <img src="images/history/supervali-premios.jpg" alt="Defensa Funciones Concejales Municipales">
+                        <div class="gallery-caption" >Defensa de proyecto "Funciones de los Concejales Municipales" en la Justicia Electoral</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/covid-clases-distancia.jpg" alt="Foto grupal en Justicia Electoral">
+                        <div class="gallery-caption" >Foto grupal de estudiantes y docentes en la Sede de la Justicia Electoral</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/saber-bti-2022.jpg" alt="Defensa Funciones Intendenta Municipal Quiindy">
+                        <div class="gallery-caption" >Defensa de proyecto "Funciones de la Intendenta Municipal de Quiindy" - Tercer Curso B.T.I. (2025) en la Justicia Electoral</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/reinas-eleccion.jpg" alt="Proyecto Leyendas del Lago Ypoá">
+                        <div class="gallery-caption" >Proyecto "Leyendas del Lago Ypoá" - Presentación cultural del B.T.I.</div>
+                    </div>
+                </div>
+
+                <h3 class="timeline-section-title" style="margin-bottom: 15px; margin-top: 30px;"><i class="fas fa-drum"></i> Cultura y Tradiciones</h3>
+                <div class="history-gallery">
+                    <div class="gallery-item">
+                        <img src="images/history/dia-folklore.jpg" alt="Construcción aulas B.T.I.">
+                        <div class="gallery-caption" >Construcción de aulas del Bachillerato Técnico en Informática (2015-2016)</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/desfile-estudiantil.jpg" alt="Cancha de fútbol">
+                        <div class="gallery-caption" >Cancha de fútbol de la institución - Vista del campo deportivo</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/defensa-proyecto-tsje.jpg" alt="Equipo de futsal femenino CNQ">
+                        <div class="gallery-caption" >Equipo de futsal femenino del CNQ en competencia deportiva</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/history/climatizacion-aulas.jpg" alt="Charla con autoridades">
+                        <div class="gallery-caption" >Charla de autoridades con estudiantes y docentes en sala de conferencias</div>
+                    </div>
+                </div>
+
+                <h3 class="timeline-section-title" style="margin-bottom: 15px; margin-top: 30px;"><i class="fas fa-school"></i> Colegio Nacional de Quiindy Hoy</h3>
+                <div class="history-gallery">
+                    <div class="gallery-item">
+                        <img src="images/history/colegio-actual.jpg" alt="Entrega certificado Leyendas del Lago Ypoá">
+                        <div class="gallery-caption" >Entrega de certificado por proyecto "Leyendas del Lago Ypoá" - Concurso Ñe'ery 2025</div>
+                    </div>
+                </div>
+
+                                <h2><i class="fas fa-quote-left"></i> Palabras de Nuestras Autoridades</h2>
+                <div class="quote-section">
+                    <div class="quote-text">
+                        El deseo de la fundación de ese Liceo, fue el de ayudar a jóvenes campesinos que no pueden ir a los colegios privados, o trasladarse a otra ciudad para tener acceso a la enseñanza.
+                    </div>
+                    <div class="quote-author">Josefina Anselma Penayo</div>
+                    <div class="quote-role">Fundadora y Primera Directora</div>
+                </div>
+                <div class="quote-section">
+                    <div class="quote-text">
+                        La gestión educativa se enfocó en tomar las evaluaciones por área (Ciencias, Sociales, Matemática). En el 2010 se implementaron las aulas temáticas para el nivel medio.
+                    </div>
+                    <div class="quote-author">Lic. Alcides Ezequiel Benítez Irala</div>
+                    <div class="quote-role">Director (2006-2024)</div>
+                </div>
+                <div class="quote-section">
+                    <div class="quote-text">
+                        Durante mi gestión se realizó la construcción de un aula climatizada con aire acondicionado, ventilador y ventanas. También se llevó a cabo el proyecto "Hambre Cero".
+                    </div>
+                    <div class="quote-author">Lic. Fabio Rafael Cárdenas Segovia</div>
+                    <div class="quote-role">Director (2024-actualidad)</div>
+                </div>
+
+                <h2><i class="fas fa-gavel"></i> Resoluciones Institucionales Clave</h2>
+                <ul class="resolution-list">
+                    <li><strong>Resolución Nº 68/1967</strong> <span class="resolution-date">(21 de febrero de 1967)</span><br>Autoriza la apertura y funcionamiento del primer Curso Básico en el Liceo Gral Alfredo Stroessner de Quiindy.</li>
+                    <li><strong>Resolución Nº 138/1973</strong> <span class="resolution-date">(7 de marzo de 1973)</span><br>Autoriza el funcionamiento del Sexto Curso del Bachillerato Humanístico en el Liceo Nacional de Quiindy.</li>
+                    <li><strong>Resolución Nº 113/2019</strong> <span class="resolution-date">(1 de abril de 2019)</span><br>Habilita el funcionamiento del primer curso del Bachillerato Técnico en Informática.</li>
+                    <li><strong>Resolución Nº 237/2020</strong> <span class="resolution-date">(21 de marzo de 2020)</span><br>Habilita el segundo curso de la Educación Media del Bachillerato Técnico en Informática.</li>
+                    <li><strong>Resolución Nº 1259/2021</strong> <span class="resolution-date">(5 de abril de 2021)</span><br>Habilita el tercer curso del Bachillerato Técnico en Informática, sección "A".</li>
+                    <li><strong>Resolución Nº 277/2023</strong> <span class="resolution-date">(fecha no especificada)</span><br>Habilita el séptimo grado sección "B" en el Colegio Nacional de Quiindy.</li>
+                    <li><strong>Resolución Nº 22780/2018</strong> <span class="resolution-date">(fecha no especificada)</span><br>Certifica al colegio como Institución Generadora de Calidad Educativa por el INEE.</li>
+                </ul>
+
+                <h2><i class="fas fa-trophy"></i> Logros Deportivos Más Destacados</h2>
+                <ul class="resolution-list">
+                    <li><strong>Futsal Femenino Sub-14 (2011-2012)</strong> <span class="resolution-date">(2012)</span><br>Participantes en JEEN (Juegos Escolares y Estudiantiles Nacionales), tercer puesto en final contra Hernandarias.</li>
+                    <li><strong>Futsal Sub-14 Final Nacional (2016)</strong> <span class="resolution-date">(2016)</span><br>Llegada a instancias nacionales, clasificación regional en Piribebuy.</li>
+                    <li><strong>Volley Femenino Sub-14 Final Nacional (2016)</strong> <span class="resolution-date">(2016)</span><br>Final Nacional disputada en San Juan Bautista Misiones.</li>
+                    <li><strong>Tricampeonato Departamental Sub-14 (2017)</strong> <span class="resolution-date">(2017)</span><br>Futsal, Handball y Volley femenino. Director técnico: Prof. Miguel Galeano.</li>
+                    <li><strong>Handball Sub-14 Semifinal Interdepartamental (2017)</strong> <span class="resolution-date">(2017)</span><br>Participación destacada en Encarnación contra equipos departamentales.</li>
+                </ul>
+
+                <h2><i class="fas fa-users"></i> Política Institucional</h2>
+                <div class="contact-info">
+                    <p><strong>Gestión Participativa</strong></p>
+                    <p>La institución adopta la gestión participativa como política institucional, propiciando el desarrollo de trabajos cooperativos donde los 4 actores de la comunidad educativa son:</p>
+                    <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                        <li>Director</li>
+                        <li>Docentes</li>
+                        <li>Alumnos</li>
+                        <li>Padres de Familia</li>
+                    </ul>
+                    <p><strong>Ubicación:</strong> Barrio Santa María, Calle Aquidabán entre Amistad y San Lorenzo, Quiindy, Paraguay.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>(c) 2026 Colegio Nacional de Quiindy - Proyecto Jaike.Web</p>
+            <p>Responsable: Karen Monserrat Jave Morales | 3er Curso B.T.I.</p>
+        </div>
+    </footer>
+
+    <script src="js/users.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
